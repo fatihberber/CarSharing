@@ -1,5 +1,6 @@
 package com.example.fatihberber.myapplication.Service;
 
+import com.example.fatihberber.myapplication.Models.Arac;
 import com.example.fatihberber.myapplication.Models.UyeBilgi;
 
 import java.util.List;
@@ -36,7 +37,9 @@ public interface WebAPI {
 */
     @GET("UyeBilgi")
     Call<List<UyeBilgi>> getUyeler();
-
+    @GET("Arac")
+    //listin içindeki model adı get arac çağırırken ki ismi istediğimizi koyuyoruz
+    Call<List<Arac>> getArac();
 
 
 
