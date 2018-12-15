@@ -45,6 +45,7 @@ public interface WebAPI {
     @FormUrlEncoded
     @POST("UyeBilgi")
     Call<UyeBilgi> UyeBilgiKayit(
+
             @Field("Adi")  String Adi,
             @Field("Soyadi")  String Soyadi,
             @Field("DogumTarihi")  String dogumtarih,

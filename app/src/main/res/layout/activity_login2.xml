@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="40dp"
-            android:text="CARSHARİNG"
+            android:text="CARSHARING"
             android:textColor="@color/bottombar"
             android:textSize="43dp"
             android:textStyle="bold" />

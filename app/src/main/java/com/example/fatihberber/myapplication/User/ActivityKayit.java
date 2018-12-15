@@ -2,6 +2,7 @@ package com.example.fatihberber.myapplication.User;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.provider.MediaStore;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fatihberber.myapplication.MapsActivity;
 import com.example.fatihberber.myapplication.Models.UyeBilgi;
 import com.example.fatihberber.myapplication.R;
 import com.example.fatihberber.myapplication.Service.RetrofitClient;
@@ -123,7 +125,8 @@ mDateSetListener = new DatePickerDialog.OnDateSetListener(){
                 @Override
                 public void onResponse(Call<UyeBilgi> call, Response<UyeBilgi> response) {
                     try {
-                        Toast.makeText(getBaseContext(), "Registration Successful", Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(ActivityKayit.this,ActivityLogin.class);
+                        startActivity(i);
 
                     } catch (Exception e) {
 
@@ -164,8 +167,8 @@ mDateSetListener = new DatePickerDialog.OnDateSetListener(){
                 parola.setError("Password should be equals");
             }
         }
-        if (telefon.length() != 12) {
-            telefon.setError("90*** *** ** **");
+        if (telefon.length() != 10) {
+            telefon.setError("5** *** ** **");
             return false;
         } else {
             if (ad.length() == 0 || ad.length() >= 30) {
@@ -184,8 +187,8 @@ mDateSetListener = new DatePickerDialog.OnDateSetListener(){
                 parola.setError("Password should be equals");
                 parola2.setError("Password should be equals");
                 return false;
-            } else if (telefon.length() != 12) {
-                telefon.setError("90*** *** ** **");
+            } else if (telefon.length() != 10) {
+                telefon.setError("5** *** ** **");
                 return false;
             } else {
                 return true;
