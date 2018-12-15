@@ -3,6 +3,7 @@ package com.example.fatihberber.myapplication.Service;
 import com.example.fatihberber.myapplication.Models.Arac;
 import com.example.fatihberber.myapplication.Models.UyeBilgi;
 
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -40,6 +41,20 @@ public interface WebAPI {
     @GET("Arac")
     //listin içindeki model adı get arac çağırırken ki ismi istediğimizi koyuyoruz
     Call<List<Arac>> getArac();
+
+    @FormUrlEncoded
+    @POST("UyeBilgi")
+    Call<UyeBilgi> UyeBilgiKayit(
+            @Field("Adi")  String Adi,
+            @Field("Soyadi")  String Soyadi,
+            @Field("DogumTarihi")  String dogumtarih,
+            @Field("Sigara")  String sigara,
+            @Field("EMail")  String EMail,
+            @Field("Sifre")  String Sifre,
+            @Field("TC")  String TC,
+            @Field("Telefon")  String Telefon,
+            @Field("UyeKayitTarihi") String uyetarih
+    );
 
 
 
