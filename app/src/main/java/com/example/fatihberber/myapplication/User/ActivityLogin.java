@@ -29,6 +29,7 @@ public class ActivityLogin extends AppCompatActivity {
     Button button;
     EditText parola;
     TextView email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +38,7 @@ public class ActivityLogin extends AppCompatActivity {
         init();
     }
 
-    public void init(){
+    public void init() {
         button = findViewById(R.id.btn_girisyap);
         parola = findViewById(R.id.parola);
         email = findViewById(R.id.eposta);
@@ -49,6 +50,7 @@ public class ActivityLogin extends AppCompatActivity {
             }
         });
     }
+
     public boolean checkEditTexts() {
         if (email.getText().toString().matches("") || parola.getText().toString().matches("")) {
             if (email.length() == 0)
@@ -70,6 +72,7 @@ public class ActivityLogin extends AppCompatActivity {
             }
         }
     }
+
     public void getUyebilgi() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(WebAPI.BASE_URL)
@@ -96,16 +99,12 @@ public class ActivityLogin extends AppCompatActivity {
                     }
                 }
                 if (entry) {
-                    Intent i = new Intent(ActivityLogin.this,MapsActivity.class);
+                    Intent i = new Intent(ActivityLogin.this, MapsActivity.class);
                     startActivity(i);
                 } else {
                     email.setError("Check E mail");
                     parola.setError("Check Password");
                 }
-
-
-
-
 
 
                 Toast.makeText(getBaseContext(), "OKKK", Toast.LENGTH_LONG).show();
