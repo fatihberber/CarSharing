@@ -86,7 +86,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-        출처: http://mainia.tistory.com/1616 [녹두장군 - 상상을 현실로]
         for(Lokasyon l : lokasyonlar){
 
             double x =Double.parseDouble(l.getLokasyonx());
