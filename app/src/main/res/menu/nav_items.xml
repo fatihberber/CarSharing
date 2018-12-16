@@ -4,12 +4,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/home"
         android:icon="@mipmap/home"
         android:title="@string/bottomhome" />
     <item
+        android:id="@+id/araba"
         android:icon="@mipmap/car"
         android:title="@string/bottomCar" />
     <item
+        android:id="@+id/profil"
         android:icon="@mipmap/profil"
         android:title="@string/bottomProfil" />
 </menu>

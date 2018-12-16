@@ -52,7 +52,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".User.ActivityKayit"></activity>
+        <activity android:name=".User.ActivityKayit" />
+        <activity android:name=".haritayenileme"></activity>
     </application>
 
 </manifest>
