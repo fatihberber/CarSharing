@@ -1,12 +1,27 @@
 package com.example.fatihberber.myapplication.Models;
 
 public class Arac {
+    private Integer AracId;
+    private Integer UserId;
+
 
    private String XKoordinat;
+   private String Adi;
+   private String Soyadi;
+
+
+
+    private String ModelAd;
+
+
+
    private String YKoordinat;
    private Integer MarkaId;
    private Integer ModelId;
-   private Number Ucret;
+
+
+
+    private Float Ucret;
    private Integer KM;
    private String Yakit;
    private String Kasa;
@@ -17,22 +32,30 @@ public class Arac {
    private Integer OrtalamaPuan;
    private String AracDurum ;
 
-public Arac(String xkoordinat,
+public Arac(
+        Integer aracid,
+        Integer userid,
+        String xkoordinat,
         String ykoordinat,
         Integer markaId,
         Integer modelId,
-        Number ucret,
+        Float ucret,
         Integer km,
         String yakit,
+        /*String adi,
+        String soyadi,
+        String modelAd,*/
         String kasa,
         String yil,
         String vites,
         String aciklama,
         Integer goruntulenme,
         Integer ortalamapuan,
-        String aracdurum){
+        String aracdurum,
+        UyeBilgi uyeBilgi){
 
-
+    AracId=aracid;
+    UserId=userid;
     XKoordinat=xkoordinat;
     YKoordinat= ykoordinat;
     MarkaId= markaId;
@@ -47,6 +70,10 @@ public Arac(String xkoordinat,
     Goruntulenme= goruntulenme;
     OrtalamaPuan= ortalamapuan;
     AracDurum = aracdurum;
+   /* Adi=adi;
+    Soyadi=soyadi;
+    ModelAd=modelAd;*/
+  // UyeBilgi=uyeBilgi;
 
 
 
@@ -69,7 +96,7 @@ public Arac(String xkoordinat,
         return ModelId;
     }
 
-    public Number getUcret() {
+    public Float getUcret() {
         return Ucret;
     }
 
@@ -107,5 +134,24 @@ public Arac(String xkoordinat,
 
     public String getAracDurum() {
         return AracDurum;
+    }
+    public Integer getAracId() {
+        return AracId;
+    }
+
+    public Integer getUserId() {
+        return UserId;
+    }
+
+    public String getAdi() {
+        return Adi;
+    }
+
+    public String getSoyadi() {
+        return Soyadi;
+    }
+
+    public String getModelAd() {
+        return ModelAd;
     }
 }

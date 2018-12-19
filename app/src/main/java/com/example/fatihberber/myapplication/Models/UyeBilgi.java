@@ -3,6 +3,11 @@ package com.example.fatihberber.myapplication.Models;
 import java.util.Date;
 
 public class UyeBilgi {
+
+    private Integer UserId;
+
+
+
     private String Role;
     private String Adi;
     private String Soyadi;
@@ -20,6 +25,7 @@ public class UyeBilgi {
 
 
     public UyeBilgi(String role, String adi, String soyadi, String dogumTarihi, String sigara, String resimYol, String EMail, String sifre, String TC, String telefon, String uyeKayitTarihi, String deneyim, int yapilanYolculukSayisi, int musteriPuan) {
+
         Role = role;
         Adi = adi;
         Soyadi = soyadi;
@@ -35,6 +41,12 @@ public class UyeBilgi {
         YapilanYolculukSayisi = yapilanYolculukSayisi;
         MusteriPuan = musteriPuan;
     }
+    public UyeBilgi( Integer userId,String adi, String soyadi) {
+        UserId=userId;
+        Adi = adi;
+        Soyadi = soyadi;
+
+    }
 
 
     public String getRole() {
@@ -47,6 +59,9 @@ public class UyeBilgi {
 
     public String getSoyadi() {
         return Soyadi;
+    }
+    public Integer getUserId() {
+        return UserId;
     }
 
     public String getDogumTarihi() {

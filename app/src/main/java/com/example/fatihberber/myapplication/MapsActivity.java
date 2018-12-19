@@ -20,6 +20,7 @@ import com.example.fatihberber.myapplication.Fragment.MyCar;
 import com.example.fatihberber.myapplication.Fragment.Profil;
 import com.example.fatihberber.myapplication.Models.Arac;
 import com.example.fatihberber.myapplication.Models.Lokasyon;
+import com.example.fatihberber.myapplication.Models.UyeBilgi;
 import com.example.fatihberber.myapplication.Service.WebAPI;
 import com.example.fatihberber.myapplication.User.ActivityLogin;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -35,6 +36,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,10 +47,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     ImageButton Ibutton;
-    TextView model;
+    TextView model,isim,ucret;
     View aracbilgi;
     ImageButton gizle;
+    MaterialRatingBar ratingbar;
+
+
     static List<Lokasyon> lokasyonlar = new ArrayList<>();
+    static List<UyeBilgi> uyeBilgis = new ArrayList<>();
+
 
 
     @Override
@@ -62,7 +69,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         Ibutton = findViewById(R.id.button5);
         aracbilgi=findViewById(R.id.aracbilgi);
+        isim=findViewById(R.id.textView10);
         aracbilgi.setVisibility(View.GONE);
+        ratingbar=findViewById(R.id.ratingbar1);
+        ucret=findViewById(R.id.textView12);
         model=findViewById(R.id.model);
         gizle=findViewById(R.id.gizle);
         gizle.setOnClickListener(new View.OnClickListener() {
@@ -150,16 +160,49 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         // Add a marker in Sydney and move the camera
         LatLng elazig = new LatLng(38.674253, 39.221514);
-        mMap.addMarker(new MarkerOptions().position(elazig).title("Elazığ").icon(BitmapDescriptorFactory.fromResource(R.drawable.carpng)));
+       /* mMap.addMarker(new MarkerOptions().position(elazig).title("Elazığ").icon(BitmapDescriptorFactory.fromResource(R.drawable.carpng)));
         LatLng ev = new LatLng(38.681371, 39.220385);
-        mMap.addMarker(new MarkerOptions().position(ev).title("ev").icon(BitmapDescriptorFactory.fromResource(R.drawable.carpng)));
+        mMap.addMarker(new MarkerOptions().position(ev).title("ev").icon(BitmapDescriptorFactory.fromResource(R.drawable.carpng)));*/
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(elazig, 14f));
         mMap.setOnMarkerClickListener(new OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 String yaz=marker.getTitle();
+                int indis;
+
+
+                for (Lokasyon l : lokasyonlar) {
+                    String knt=Integer.toString(l.getAracId());
+                    String knt2=Integer.toString(l.getUserId());
+                    if(yaz.equals(knt)){
+                        for (UyeBilgi n : uyeBilgis)
+                        {
+                            String knt3=Integer.toString(n.getUserId());
+
+                            if(knt2.equals(knt3)){
+
+                                isim.setText(n.getAdi()+" "+n.getSoyadi());
+                            }
+
+                        }
+                        ucret.setText(Float.toString(l.getUcret())+" TL");
+
+                        ratingbar.setRating(l.getOrtalamaPuan());
+                        model.setText("Saatlik Kiralama Ücreti" );
+
+                    }
+
+
+                }
+
+
+
+
+
+
+
                 aracbilgi.setVisibility(View.VISIBLE);
-                model.setText(yaz);
+
 
                 return false;
             }
@@ -170,15 +213,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             double x = Double.parseDouble(l.getLokasyonx());
             double y = Double.parseDouble(l.getLokasyony());
             LatLng ev2 = new LatLng(x, y);
-            drawmaker(ev2);
+            String title=Integer.toString(l.getAracId());
+            drawmaker(title,ev2);
 
 
         }
     }
 
-    public void drawmaker(LatLng latLng) {
+    public void drawmaker(String title,LatLng latLng) {
         MarkerOptions marker = new MarkerOptions();
-        marker.position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.carpng));
+        marker.position(latLng).title(title).icon(BitmapDescriptorFactory.fromResource(R.drawable.carpng));
         mMap.addMarker(marker);
 
     }
@@ -194,6 +238,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         WebAPI api = retrofit.create(WebAPI.class);
         Call<List<Arac>> call = api.getArac();
+        Call<List<UyeBilgi>> call2 = api.getUyeler();
+
 
         call.enqueue(new Callback<List<Arac>>() {
             @Override
@@ -201,7 +247,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 List<Arac> aracbilgileri = response.body();
                 for (Arac m : aracbilgileri) {
 
-                    lokasyonlar.add(new Lokasyon(m.getModelId(), m.getXKoordinat(), m.getYKoordinat()));
+                    lokasyonlar.add(new Lokasyon(m.getAracId(), m.getXKoordinat(), m.getYKoordinat(),m.getUserId(),m.getUcret(),m.getOrtalamaPuan(),m.getModelAd(),m.getAdi(),m.getSoyadi()));
 
                 }
 
@@ -211,6 +257,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onFailure(Call<List<Arac>> call, Throwable t) {
+                Toast.makeText(getBaseContext(), "onFailure" + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+        call2.enqueue(new Callback<List<UyeBilgi>>() {
+            @Override
+            public void onResponse(Call<List<UyeBilgi>> call2, Response<List<UyeBilgi>> response) {
+                List<UyeBilgi> aracbilgileri = response.body();
+                for (UyeBilgi m : aracbilgileri) {
+
+                    uyeBilgis.add(new UyeBilgi(m.getUserId(),m.getAdi(),m.getSoyadi()));
+
+                }
+
+
+                Toast.makeText(getBaseContext(), "OKKK", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<List<UyeBilgi>> call, Throwable t) {
                 Toast.makeText(getBaseContext(), "onFailure" + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
