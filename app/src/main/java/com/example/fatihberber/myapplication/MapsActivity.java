@@ -121,13 +121,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             switch (item.getItemId()) {
                 case R.id.home:
+                    aracbilgi.setVisibility(View.GONE);
                     selectedActivity = new MapsActivity();
 
                     break;
                 case R.id.araba:
+                    aracbilgi.setVisibility(View.GONE);
                     selectedFragment = new MyCar();
                     break;
                 case R.id.profil:
+                    aracbilgi.setVisibility(View.GONE);
                     //1 Toast.makeText(this,"Oldu",Toast.LENGTH_LONG).show();
                     selectedFragment = new Profil();
                     break;
