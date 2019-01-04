@@ -1,6 +1,5 @@
 package com.example.fatihberber.myapplication.User;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.fatihberber.myapplication.MapsActivity;
 import com.example.fatihberber.myapplication.Models.UyeBilgi;
+import com.example.fatihberber.myapplication.Process.Session;
 import com.example.fatihberber.myapplication.R;
 import com.example.fatihberber.myapplication.Service.WebAPI;
 
@@ -118,6 +118,9 @@ public class ActivityLogin extends AppCompatActivity {
                     }
                 }
                 if (entry) {
+                    Session session=new Session(getBaseContext());
+                    session.setUserId(email.getText().toString());
+
                     Intent i = new Intent(ActivityLogin.this,MapsActivity.class);
                     startActivity(i);
                 } else {

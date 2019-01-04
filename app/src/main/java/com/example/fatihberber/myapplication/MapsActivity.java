@@ -47,15 +47,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     ImageButton Ibutton;
-    TextView model,isim,ucret;
+    TextView model, isim, ucret;
     View aracbilgi;
     ImageButton gizle;
     MaterialRatingBar ratingbar;
+    String UserId;
 
 
     static List<Lokasyon> lokasyonlar = new ArrayList<>();
     static List<UyeBilgi> uyeBilgis = new ArrayList<>();
-
 
 
     @Override
@@ -63,27 +63,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         getArac();
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         Ibutton = findViewById(R.id.button5);
-        aracbilgi=findViewById(R.id.aracbilgi);
-        isim=findViewById(R.id.textView10);
+        aracbilgi = findViewById(R.id.aracbilgi);
+        isim = findViewById(R.id.textView10);
         aracbilgi.setVisibility(View.GONE);
-        ratingbar=findViewById(R.id.ratingbar1);
-        ucret=findViewById(R.id.textView12);
-        model=findViewById(R.id.model);
-        gizle=findViewById(R.id.gizle);
+        ratingbar = findViewById(R.id.ratingbar1);
+        ucret = findViewById(R.id.textView12);
+        model = findViewById(R.id.model);
+        gizle = findViewById(R.id.gizle);
         gizle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 aracbilgi.setVisibility(View.GONE);
                 Toast.makeText(getBaseContext(), "OKKK", Toast.LENGTH_LONG).show();
-
-            }});
-
-
+            }
+        });
         Ibutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,23 +87,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 startActivity(i);
             }
         });
-
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
-
-
         try {
             Bundle extras = getIntent().getExtras();
-          String  value = extras.getString("send_string");
-        }catch (Exception e){
 
-            Intent i = new Intent(getApplicationContext(), haritayenileme.class);
-            startActivity(i);
+            String value = extras.getString("send_string");
+
+
+        } catch (Exception e) {
+
+            Intent i2 = new Intent(getApplicationContext(), haritayenileme.class);
+            startActivity(i2);
         }
-
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -148,85 +142,69 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     };
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        // Add a marker in Sydney and move the camera
         LatLng elazig = new LatLng(38.674253, 39.221514);
-       /* mMap.addMarker(new MarkerOptions().position(elazig).title("Elazığ").icon(BitmapDescriptorFactory.fromResource(R.drawable.carpng)));
-        LatLng ev = new LatLng(38.681371, 39.220385);
-        mMap.addMarker(new MarkerOptions().position(ev).title("ev").icon(BitmapDescriptorFactory.fromResource(R.drawable.carpng)));*/
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(elazig, 14f));
         mMap.setOnMarkerClickListener(new OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                String yaz=marker.getTitle();
-                int indis;
-
-
+                String yaz = marker.getTitle();
+                String durum = "1 ";
                 for (Lokasyon l : lokasyonlar) {
-                    String knt=Integer.toString(l.getAracId());
-                    String knt2=Integer.toString(l.getUserId());
-                    if(yaz.equals(knt)){
-                        for (UyeBilgi n : uyeBilgis)
-                        {
-                            String knt3=Integer.toString(n.getUserId());
-
-                            if(knt2.equals(knt3)){
-
-                                isim.setText(n.getAdi()+" "+n.getSoyadi());
+                    String knt = Integer.toString(l.getAracId());
+                    String knt2 = Integer.toString(l.getUserId());
+                    if (yaz.equals(knt)) {
+                        for (UyeBilgi n : uyeBilgis) {
+                            String knt3 = Integer.toString(n.getUserId());
+                            if (knt2.equals(knt3)) {
+                                isim.setText(n.getAdi() + " " + n.getSoyadi());
+                                if (l.getAracDurum().matches("Dolu")) {
+                                    durum = "gösterme";
+                                }
+                                break;
                             }
-
                         }
-                        ucret.setText(Float.toString(l.getUcret())+" TL");
-
+                        ucret.setText(Float.toString(l.getUcret()) + " TL");
                         ratingbar.setRating(l.getOrtalamaPuan());
-                        model.setText("Saatlik Kiralama Ücreti" );
-
+                        model.setText("Saatlik Kiralama Ücreti");
                     }
-
-
                 }
+                if (durum.matches("gösterme")) {
 
-
-
-
-
-
-
-                aracbilgi.setVisibility(View.VISIBLE);
-
-
+                    aracbilgi.setVisibility(View.GONE);
+                } else {
+                    aracbilgi.setVisibility(View.VISIBLE);
+                }
                 return false;
             }
         });
-
         for (Lokasyon l : lokasyonlar) {
 
             double x = Double.parseDouble(l.getLokasyonx());
             double y = Double.parseDouble(l.getLokasyony());
             LatLng ev2 = new LatLng(x, y);
-            String title=Integer.toString(l.getAracId());
-            drawmaker(title,ev2);
+            String title = Integer.toString(l.getAracId());
+            String durum = l.getAracDurum();
+
+            drawmaker(title, ev2, durum);
 
 
         }
     }
 
-    public void drawmaker(String title,LatLng latLng) {
+    public void drawmaker(String title, LatLng latLng, String durum) {
         MarkerOptions marker = new MarkerOptions();
-        marker.position(latLng).title(title).icon(BitmapDescriptorFactory.fromResource(R.drawable.carpng));
-        mMap.addMarker(marker);
+        if (durum.matches("Dolu")) {
+            marker.position(latLng).title(title).icon(BitmapDescriptorFactory.fromResource(R.drawable.carpng));
+            mMap.addMarker(marker);
+        } else {
+            marker.position(latLng).title(title).icon(BitmapDescriptorFactory.fromResource(R.drawable.carpng2));
+            mMap.addMarker(marker);
+
+        }
 
     }
 
@@ -250,7 +228,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 List<Arac> aracbilgileri = response.body();
                 for (Arac m : aracbilgileri) {
 
-                    lokasyonlar.add(new Lokasyon(m.getAracId(), m.getXKoordinat(), m.getYKoordinat(),m.getUserId(),m.getUcret(),m.getOrtalamaPuan(),m.getModelAd(),m.getAdi(),m.getSoyadi()));
+                    lokasyonlar.add(new Lokasyon(m.getAracId(), m.getXKoordinat(), m.getYKoordinat(), m.getUserId(), m.getUcret(), m.getOrtalamaPuan(), m.getModelAd(), m.getAdi(), m.getSoyadi(), m.getAracDurum()));
 
                 }
 
@@ -271,7 +249,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 List<UyeBilgi> aracbilgileri = response.body();
                 for (UyeBilgi m : aracbilgileri) {
 
-                    uyeBilgis.add(new UyeBilgi(m.getUserId(),m.getAdi(),m.getSoyadi()));
+                    uyeBilgis.add(new UyeBilgi(m.getUserId(), m.getAdi(), m.getSoyadi()));
 
                 }
 

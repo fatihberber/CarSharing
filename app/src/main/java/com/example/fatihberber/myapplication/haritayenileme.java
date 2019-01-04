@@ -12,7 +12,8 @@ public class haritayenileme extends AppCompatActivity {
         setContentView(R.layout.activity_haritayenileme);
         String s = "Deneme";
         Intent i = new Intent(haritayenileme.this, MapsActivity.class);
-        i.putExtra("send_string",s);
+            Bundle extras = getIntent().getExtras();
+            i.putExtra("send_string",s);
         startActivity(i);
 
 

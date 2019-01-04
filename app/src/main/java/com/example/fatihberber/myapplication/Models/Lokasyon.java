@@ -9,6 +9,7 @@ public class Lokasyon {
     String adi;
     String soyadi;
     String modelAd;
+    String aracdurum;
 
     public String getAdi() {
         return adi;
@@ -37,6 +38,10 @@ public class Lokasyon {
     public int getUserId() {
         return UserId;
     }
+    public String getAracDurum() {
+        return aracdurum;
+    }
+
 
     public Float getUcret() {
         return Ucret;
@@ -46,7 +51,7 @@ public class Lokasyon {
         return OrtalamaPuan;
     }
 
-    public Lokasyon(int aracId, String lokasyonx, String lokasyony,int UserId,Float Ucret,int OrtalamaPuan,String modelAd,String adi,String soyadi) {
+    public Lokasyon(int aracId, String lokasyonx, String lokasyony,int UserId,Float Ucret,int OrtalamaPuan,String modelAd,String adi,String soyadi,String aracdurum) {
         this.aracId = aracId;
         this.lokasyonx = lokasyonx;
         this.lokasyony = lokasyony;
@@ -56,6 +61,7 @@ public class Lokasyon {
         this.modelAd=modelAd;
         this.adi=adi;
         this.soyadi=soyadi;
+        this.aracdurum=aracdurum;
     }
 
     public Lokasyon() {

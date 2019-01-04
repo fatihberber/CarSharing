@@ -17,7 +17,7 @@ import retrofit2.http.POST;
 
 public interface WebAPI {
 
-    String BASE_URL ="http://192.168.1.38:60746/api/";
+    String BASE_URL ="http://192.168.1.40:60746/api/";
 /*
     //@Headers("Content-Type: application/json")
     @FormUrlEncoded
