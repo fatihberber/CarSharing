@@ -1,6 +1,8 @@
 package com.example.fatihberber.myapplication.Service;
 
 import com.example.fatihberber.myapplication.Models.Arac;
+import com.example.fatihberber.myapplication.Models.Marka;
+import com.example.fatihberber.myapplication.Models.Model;
 import com.example.fatihberber.myapplication.Models.UyeBilgi;
 
 import java.util.Date;
@@ -38,10 +40,14 @@ public interface WebAPI {
 */
     @GET("UyeBilgi")
     Call<List<UyeBilgi>> getUyeler();
+    @GET("Marka")
+    Call<List<Marka>> getMarka();
     @GET("Arac")
     //listin içindeki model adı get arac çağırırken ki ismi istediğimizi koyuyoruz
     Call<List<Arac>> getArac();
-
+    @GET("Model")
+        //listin içindeki model adı get arac çağırırken ki ismi istediğimizi koyuyoruz
+    Call<List<Model>> getModel();
     @FormUrlEncoded
     @POST("UyeBilgi")
     Call<UyeBilgi> UyeBilgiKayit(
@@ -55,6 +61,19 @@ public interface WebAPI {
             @Field("TC")  String TC,
             @Field("Telefon")  String Telefon,
             @Field("UyeKayitTarihi") String uyetarih
+    );
+    @FormUrlEncoded
+    @POST("Arac")
+    Call<Arac> Arackayit(
+            @Field("MarkaId")Integer MarkaId,
+            @Field("ModelId")Integer ModelId,
+            @Field("Ucret")Float Ucret,
+            @Field("KM")Integer KM,
+            @Field("Yakit")String Yakit,
+            @Field("Kasa")String Kasa,
+            @Field("Yil")String Yil,
+            @Field("Vites")String Vites,
+            @Field("Aciklama")String Aciklama
     );
 
 

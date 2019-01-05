@@ -8,17 +8,118 @@
 
 
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="16dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
 
+                <Spinner
+                    android:id="@+id/ModelSpinner"
+                    android:layout_width="368dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Spinner
+                    android:id="@+id/ModelSpinner"
+                    android:layout_width="368dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="92dp" />
+
+                <EditText
+                    android:id="@+id/SaatlikUcret"
+                    android:layout_width="368dp"
+                    android:layout_height="41dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="Saatlik Ücret"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ModelSpinner" />
+
+                <EditText
+                    android:id="@+id/AracKM"
+                    android:layout_width="368dp"
+                    android:layout_height="41dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="Arac KM"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/SaatlikUcret" />
+
+                <Spinner
+                    android:id="@+id/YakitTipi"
+                    android:layout_width="368dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="223dp" />
+
+                <Spinner
+                    android:id="@+id/KasaTipi"
+                    android:layout_width="368dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="256dp" />
+
+                <EditText
+                    android:id="@+id/plaka"
+                    android:layout_width="368dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="Plaka"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="288dp" />
+
+                <Spinner
+                    android:id="@+id/VitesTipi"
+                    android:layout_width="368dp"
+                    android:layout_height="wrap_content"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="342dp" />
+
+                <EditText
+                    android:id="@+id/Aciklama"
+                    android:layout_width="368dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:ems="10"
+                    android:inputType="textMultiLine"
+                    android:text="Açıklama"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/VitesTipi" />
 
 
+            </android.support.constraint.ConstraintLayout>
+        </ScrollView>
 
+    </FrameLayout>
 
-
-
-
-
-
-
-    <include layout="@layout/fragment_bottom_bar"></include>
 </android.support.constraint.ConstraintLayout>

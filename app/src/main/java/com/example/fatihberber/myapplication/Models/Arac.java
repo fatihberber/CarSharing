@@ -1,33 +1,22 @@
 package com.example.fatihberber.myapplication.Models;
 
 public class Arac {
-    private Integer AracId;
-    private Integer UserId;
-
-
+   private Integer AracId;
+   private Integer UserId;
    private String XKoordinat;
    private String Adi;
    private String Soyadi;
-
-
-
-    private String ModelAd;
-
-
-
+   private String ModelAd;
    private String YKoordinat;
    private Integer MarkaId;
    private Integer ModelId;
-
-
-
-    private Float Ucret;
+   private Float Ucret;
    private Integer KM;
    private String Yakit;
    private String Kasa;
    private String Yil;
    private String Vites;
-   private String Aciklama;
+   private String  Aciklama;
    private Integer Goruntulenme;
    private Integer OrtalamaPuan;
    private String AracDurum ;
