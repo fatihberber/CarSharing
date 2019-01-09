@@ -17,6 +17,12 @@ public class Session {
         String userId=preferences.getString("userId"," ");
         return userId;
     }
-
+    public void setUsersId(Integer userId){
+        preferences.edit().putInt("userId",userId).commit();
+    }
+    public Integer getUsersId(){
+        Integer userId=preferences.getInt("userId",1);
+        return userId;
+    }
 
 }

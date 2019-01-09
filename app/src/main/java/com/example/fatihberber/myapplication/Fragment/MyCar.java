@@ -1,6 +1,7 @@
 package com.example.fatihberber.myapplication.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fatihberber.myapplication.Models.Arac;
@@ -17,8 +20,14 @@ import com.example.fatihberber.myapplication.Models.Lokasyon;
 import com.example.fatihberber.myapplication.Models.Marka;
 import com.example.fatihberber.myapplication.Models.Model;
 import com.example.fatihberber.myapplication.Models.UyeBilgi;
+import com.example.fatihberber.myapplication.Process.Session;
 import com.example.fatihberber.myapplication.R;
+import com.example.fatihberber.myapplication.Service.RetrofitClient;
 import com.example.fatihberber.myapplication.Service.WebAPI;
+import com.example.fatihberber.myapplication.User.ActivityKayit;
+import com.example.fatihberber.myapplication.User.ActivityLogin;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,25 +42,26 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * A simple {@link Fragment} subclass.
  */
 public class MyCar extends Fragment implements AdapterView.OnItemSelectedListener {
-    Integer MarkaId;
-    Integer ModelId;
+
     Button kayit;
-    Float Ucret;
-    Integer KM;
-    String Yakit;
-    String Kasa;
-    String Yil;
-    String Vites;
-    String Aciklama;
+   TextView Ucret;
+   TextView  KM;
+   TextView Plaka;
+   TextView Aciklama;
     Spinner YakitTipi;
     Spinner VitesTipi;
     Spinner Marka;
     Spinner Modelspinner;
     public List<Marka> markalar = new ArrayList<>();
     public List<Model> Modeller = new ArrayList<>();
+    public List<Arac> Arac = new ArrayList<>();
     List<String> yakittipi = new ArrayList<String>();
     List<String> vitestipi = new ArrayList<String>();
     Integer Markaid;
+    Integer Modelid;
+    boolean arcknt=false;
+    FrameLayout mycar;
+    int userId;
 
     public static View view;
 
@@ -65,10 +75,14 @@ public class MyCar extends Fragment implements AdapterView.OnItemSelectedListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my_car, container, false);
+arackontrol();
+mycar=view.findViewById(R.id.mycarframelayout);
+     if(arcknt){
+mycar.setVisibility(View.GONE);
+     }
+     else{
         kayit=view.findViewById(R.id.AracKayit);
         yakitekle();
-
-
 //yakit tipi dolduruluyor
         YakitTipi = view.findViewById(R.id.YakitTipi);
         ArrayAdapter<String> adapterYakit;
@@ -106,7 +120,30 @@ break;
             }
         });
 
+        Modelspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int arg2, long arg3) {
 
+                for(Model m: Modeller){
+                    if(m.getModelAd().equals(Modelspinner.getSelectedItem())){
+                        Modelid=m.getModelId();
+                        break;
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+        Ucret=view.findViewById(R.id.SaatlikUcret);
+        KM=view.findViewById(R.id.AracKM);
+        Plaka=view.findViewById(R.id.plaka);
+        Aciklama=view.findViewById(R.id.Aciklama);
+     }
 
 
 
@@ -120,6 +157,8 @@ break;
         });
         return view;
     }
+
+
 
     public void yakitekle() {
 
@@ -144,13 +183,6 @@ break;
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-
-
-
-
-
-
-
 
     public void getArac() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -240,23 +272,127 @@ if(m.getMarkaId().equals(Markaid))
 
     }
 
-
-
-
     public void arackaydet() {
+        Session session=new Session(getContext());
+        Integer userId=session.getUsersId();
+        String ucret=Ucret.getText().toString();
+        String km=KM.getText().toString();
+        String yakit=YakitTipi.getSelectedItem().toString();
+        String plaka=Plaka.getText().toString();
+        String vites=VitesTipi.getSelectedItem().toString();
+        String aciklama=Aciklama.getText().toString();
+        Boolean knt=false;
+        knt=kontrol(plaka);
+        if(knt.equals(false)){
+        Call<Arac> call = RetrofitClient
+                .getmInstance()
+                .getApi()
+               .Arackayit(userId,"38.681774","39.205707",Markaid ,Modelid,Float.valueOf(ucret),Integer.parseInt(km),yakit,plaka,"2018",vites,aciklama,"Boş");
+               // .Arackayit(12 ,12,Float.valueOf(12),12,"asa","a","2018","a","aa");
+//
+        call.enqueue(new Callback<Arac>() {
+            @Override
+            public void onResponse(Call<Arac> call, Response<Arac> response) {
+                try {
+
+                    Toast.makeText(getContext(), "Kaydedildi", Toast.LENGTH_LONG).show();
 
 
-String yaz=YakitTipi.getSelectedItem().toString();
+                } catch (Exception e) {
 
+                    Toast.makeText(getContext(), "onResponse da patladı", Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Arac> call, Throwable t) {
+                Toast.makeText(getContext(), "Onfailure da patladı", Toast.LENGTH_LONG).show();}
+
+        });
+    }
 
 
 
 
     }
 
+    public Boolean kontrol(final String plaka){
+
+        final boolean[] entry = {false};
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(WebAPI.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+
+        WebAPI api = retrofit.create(WebAPI.class);
+        Call<List<Arac>> call = api.getArac();
 
 
 
+        call.enqueue(new Callback<List<Arac>>() {
+            @Override
+            public void onResponse(Call<List<Arac>> call, Response<List<Arac>> response) {
+                Arac = response.body();
+                for(Arac m : Arac){
+                    if(m.getKasa().equals(plaka)){
+                        entry[0] = true;
+break;
+                    }
+
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Arac>> call, Throwable t) {
+                Toast.makeText(getContext(), "onFailure" + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+return entry[0];
+    }
+
+    public void arackontrol(){
+
+        Session session=new Session(getContext());
+        userId=session.getUsersId();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(WebAPI.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+
+        WebAPI api = retrofit.create(WebAPI.class);
+        Call<List<Arac>> call = api.getArac();
+
+
+
+        call.enqueue(new Callback<List<Arac>>() {
+            @Override
+            public void onResponse(Call<List<Arac>> call, Response<List<Arac>> response) {
+                Arac = response.body();
+                for(Arac m : Arac){
+
+                    if(m.getUserId().equals(userId)){
+                        arcknt=true;
+                        break;
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Arac>> call, Throwable t) {
+                Toast.makeText(getContext(), "onFailure" + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+
+
+
+    }
 
 
 

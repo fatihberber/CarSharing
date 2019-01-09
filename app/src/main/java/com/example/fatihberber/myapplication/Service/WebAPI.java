@@ -19,7 +19,7 @@ import retrofit2.http.POST;
 
 public interface WebAPI {
 
-    String BASE_URL ="http://192.168.1.40:60746/api/";
+    String BASE_URL ="http://192.168.1.38:60746/api/";
 /*
     //@Headers("Content-Type: application/json")
     @FormUrlEncoded
@@ -65,6 +65,9 @@ public interface WebAPI {
     @FormUrlEncoded
     @POST("Arac")
     Call<Arac> Arackayit(
+            @Field("UserId")Integer UserId,
+            @Field("XKoordinat")String XKoordinat,
+            @Field("YKoordinat")String YKoordinat,
             @Field("MarkaId")Integer MarkaId,
             @Field("ModelId")Integer ModelId,
             @Field("Ucret")Float Ucret,
@@ -73,7 +76,9 @@ public interface WebAPI {
             @Field("Kasa")String Kasa,
             @Field("Yil")String Yil,
             @Field("Vites")String Vites,
-            @Field("Aciklama")String Aciklama
+            @Field("Aciklama")String Aciklama,
+            @Field("AracDurum")String AracDurum
+
     );
 
 

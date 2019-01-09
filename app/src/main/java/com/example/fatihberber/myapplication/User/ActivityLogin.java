@@ -30,7 +30,7 @@ public class ActivityLogin extends AppCompatActivity {
     EditText parola;
     EditText email;
     TextView kayit;
-
+    Integer usersid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +112,7 @@ public class ActivityLogin extends AppCompatActivity {
                     String password_ = m.getSifre();
                     if (!e_mail.matches("") && !password_.matches("") && e_mail != null && password_ != null) {
                         if (e_mail.equals(email.getText().toString()) && password_.equals(parola.getText().toString())) {
+                            usersid=m.getUserId();
                             entry = true;
                             break;
                         }
@@ -120,6 +121,9 @@ public class ActivityLogin extends AppCompatActivity {
                 if (entry) {
                     Session session=new Session(getBaseContext());
                     session.setUserId(email.getText().toString());
+                    session.setUsersId(usersid);
+
+
 
                     Intent i = new Intent(ActivityLogin.this,MapsActivity.class);
                     startActivity(i);
@@ -138,7 +142,7 @@ public class ActivityLogin extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<UyeBilgi>> call, Throwable t) {
-                Toast.makeText(getBaseContext(), "onFailure" + t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "onFailure " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
