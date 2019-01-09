@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.example.fatihberber.myapplication.Models.Arac;
+
 public class Session {
 
     private SharedPreferences preferences;
@@ -11,10 +13,10 @@ public class Session {
         preferences= PreferenceManager.getDefaultSharedPreferences(context);
     }
     public void setUserId(String userId){
-        preferences.edit().putString("userId",userId).commit();
+        preferences.edit().putString("usersId",userId).commit();
     }
     public String getUserId(){
-        String userId=preferences.getString("userId"," ");
+        String userId=preferences.getString("usersId"," ");
         return userId;
     }
     public void setUsersId(Integer userId){
@@ -23,6 +25,13 @@ public class Session {
     public Integer getUsersId(){
         Integer userId=preferences.getInt("userId",1);
         return userId;
+    }
+    public void setAracId(Integer aracId){
+        preferences.edit().putInt("AracId",aracId).commit();
+    }
+    public Integer getAracId(){
+        Integer aracId=preferences.getInt("AracId",1);
+        return aracId;
     }
 
 }

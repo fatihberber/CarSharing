@@ -44,6 +44,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MyCar extends Fragment implements AdapterView.OnItemSelectedListener {
 
     Button kayit;
+    int user=0;
    TextView Ucret;
    TextView  KM;
    TextView Plaka;
@@ -59,7 +60,7 @@ public class MyCar extends Fragment implements AdapterView.OnItemSelectedListene
     List<String> vitestipi = new ArrayList<String>();
     Integer Markaid;
     Integer Modelid;
-    boolean arcknt=false;
+    boolean arcknt=true;
     FrameLayout mycar;
     int userId;
 
@@ -75,86 +76,92 @@ public class MyCar extends Fragment implements AdapterView.OnItemSelectedListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my_car, container, false);
-arackontrol();
+//arackontrol();
 mycar=view.findViewById(R.id.mycarframelayout);
-     if(arcknt){
+//arackontrol();
+        try {
+            Session session=new Session(getContext());
+            user=session.getUsersId();
+        }catch (Exception e){
+
+        }
+     if(user!=0){
 mycar.setVisibility(View.GONE);
      }
-     else{
-        kayit=view.findViewById(R.id.AracKayit);
-        yakitekle();
+     else {
+         kayit = view.findViewById(R.id.AracKayit);
+         yakitekle();
 //yakit tipi dolduruluyor
-        YakitTipi = view.findViewById(R.id.YakitTipi);
-        ArrayAdapter<String> adapterYakit;
-        adapterYakit = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, yakittipi);
-        adapterYakit.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        YakitTipi.setAdapter(adapterYakit);
+         YakitTipi = view.findViewById(R.id.YakitTipi);
+         ArrayAdapter<String> adapterYakit;
+         adapterYakit = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, yakittipi);
+         adapterYakit.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+         YakitTipi.setAdapter(adapterYakit);
 //vites tipi dolduruluyor
-        VitesTipi = view.findViewById(R.id.VitesTipi);
-        ArrayAdapter<String> adaptervites;
-        adaptervites = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, vitestipi);
-        adaptervites.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        VitesTipi.setAdapter(adaptervites);
-        //Marka spinner dolduruluyor
-        getArac();
-        Marka=view.findViewById(R.id.MarkaSpinner);
-        Modelspinner=view.findViewById(R.id.ModelSpinner);
+         VitesTipi = view.findViewById(R.id.VitesTipi);
+         ArrayAdapter<String> adaptervites;
+         adaptervites = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, vitestipi);
+         adaptervites.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+         VitesTipi.setAdapter(adaptervites);
+         //Marka spinner dolduruluyor
+         getArac();
+         Marka = view.findViewById(R.id.MarkaSpinner);
+         Modelspinner = view.findViewById(R.id.ModelSpinner);
 
-        Marka.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                       int arg2, long arg3) {
+         Marka.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+             @Override
+             public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                        int arg2, long arg3) {
 
-                for(Marka m:markalar){
-                    if(m.getAracMarka().equals(Marka.getSelectedItem())){
-                        Markaid=m.getMarkaId();
-break;
-                    }
+                 for (Marka m : markalar) {
+                     if (m.getAracMarka().equals(Marka.getSelectedItem())) {
+                         Markaid = m.getMarkaId();
+                         break;
+                     }
 
-                }
-                getAracmodel();
-            }
+                 }
+                 getAracmodel();
+             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
+             @Override
+             public void onNothingSelected(AdapterView<?> arg0) {
+             }
+         });
 
-        Modelspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                       int arg2, long arg3) {
+         Modelspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+             @Override
+             public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                        int arg2, long arg3) {
 
-                for(Model m: Modeller){
-                    if(m.getModelAd().equals(Modelspinner.getSelectedItem())){
-                        Modelid=m.getModelId();
-                        break;
-                    }
+                 for (Model m : Modeller) {
+                     if (m.getModelAd().equals(Modelspinner.getSelectedItem())) {
+                         Modelid = m.getModelId();
+                         break;
+                     }
 
-                }
+                 }
 
-            }
+             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
-        Ucret=view.findViewById(R.id.SaatlikUcret);
-        KM=view.findViewById(R.id.AracKM);
-        Plaka=view.findViewById(R.id.plaka);
-        Aciklama=view.findViewById(R.id.Aciklama);
+             @Override
+             public void onNothingSelected(AdapterView<?> arg0) {
+             }
+         });
+         Ucret = view.findViewById(R.id.SaatlikUcret);
+         KM = view.findViewById(R.id.AracKM);
+         Plaka = view.findViewById(R.id.plaka);
+         Aciklama = view.findViewById(R.id.Aciklama);
+
+
+         // Inflate the layout for this fragment
+         kayit.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 arackaydet();
+             }
+
+         });
      }
-
-
-
-        // Inflate the layout for this fragment
-        kayit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                arackaydet();
-            }
-
-        });
         return view;
     }
 
@@ -366,11 +373,11 @@ return entry[0];
 
 
         WebAPI api = retrofit.create(WebAPI.class);
-        Call<List<Arac>> call = api.getArac();
+        Call<List<Arac>> call2 = api.getArac();
 
 
 
-        call.enqueue(new Callback<List<Arac>>() {
+        call2.enqueue(new Callback<List<Arac>>() {
             @Override
             public void onResponse(Call<List<Arac>> call, Response<List<Arac>> response) {
                 Arac = response.body();

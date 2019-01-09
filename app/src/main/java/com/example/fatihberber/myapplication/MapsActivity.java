@@ -21,6 +21,7 @@ import com.example.fatihberber.myapplication.Fragment.Profil;
 import com.example.fatihberber.myapplication.Models.Arac;
 import com.example.fatihberber.myapplication.Models.Lokasyon;
 import com.example.fatihberber.myapplication.Models.UyeBilgi;
+import com.example.fatihberber.myapplication.Process.Session;
 import com.example.fatihberber.myapplication.Service.WebAPI;
 import com.example.fatihberber.myapplication.User.ActivityLogin;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -52,6 +53,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     ImageButton gizle;
     MaterialRatingBar ratingbar;
     String UserId;
+    int user;
 
 
     static List<Lokasyon> lokasyonlar = new ArrayList<>();
@@ -211,6 +213,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     //lokasyonların alındığı kısım
     public void getArac() {
+        final Session session=new Session(getBaseContext());
+        user=session.getUsersId();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(WebAPI.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -227,7 +231,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onResponse(Call<List<Arac>> call, Response<List<Arac>> response) {
                 List<Arac> aracbilgileri = response.body();
                 for (Arac m : aracbilgileri) {
+                    if(m.getUserId().equals(user))
+                    {
+                        session.setAracId(m.getAracId());
 
+
+                    }
                     lokasyonlar.add(new Lokasyon(m.getAracId(), m.getXKoordinat(), m.getYKoordinat(), m.getUserId(), m.getUcret(), m.getOrtalamaPuan(), m.getModelAd(), m.getAdi(), m.getSoyadi(), m.getAracDurum()));
 
                 }

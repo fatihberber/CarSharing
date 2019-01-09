@@ -36,7 +36,8 @@ public class Profil extends Fragment {
     TextView email;
     TextView tel;
     TextView dogum;
-    String userId;
+    String userId="1";
+    int userIdd;
 
     public Profil() {
         // Required empty public constructor
@@ -59,8 +60,8 @@ view  = inflater.inflate(R.layout.fragment_profil, container, false);
         email=view.findViewById(R.id.profilEmail);
         tel=view.findViewById(R.id.profilTel);
         dogum=view.findViewById(R.id.profilTarih);
-        Session session=new Session(getContext());
-        userId=session.getUserId();
+       Session session=new Session(getContext());
+       userId=session.getUserId();
         getUyebilgi();
         // Inflate the layout for this fragment
         return view;
