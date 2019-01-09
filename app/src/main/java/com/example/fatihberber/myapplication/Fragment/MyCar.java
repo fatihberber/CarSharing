@@ -32,6 +32,8 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,6 +47,14 @@ public class MyCar extends Fragment implements AdapterView.OnItemSelectedListene
 
     Button kayit;
     int user=0;
+    TextView koordinantx;
+    TextView koordinanty;
+    TextView ucret2;
+    TextView aciklama2;
+
+
+
+
    TextView Ucret;
    TextView  KM;
    TextView Plaka;
@@ -62,6 +72,7 @@ public class MyCar extends Fragment implements AdapterView.OnItemSelectedListene
     Integer Modelid;
     boolean arcknt=true;
     FrameLayout mycar;
+    FrameLayout varsa;
     int userId;
 
     public static View view;
@@ -78,17 +89,38 @@ public class MyCar extends Fragment implements AdapterView.OnItemSelectedListene
         view = inflater.inflate(R.layout.fragment_my_car, container, false);
 //arackontrol();
 mycar=view.findViewById(R.id.mycarframelayout);
+varsa=view.findViewById(R.id.varsabilgi);
 //arackontrol();
         try {
             Session session=new Session(getContext());
-            user=session.getUsersId();
+            user=session.getAracId();
         }catch (Exception e){
 
         }
      if(user!=0){
 mycar.setVisibility(View.GONE);
+varsa.setVisibility(View.VISIBLE);
+
+         koordinantx=view.findViewById(R.id.Koordinatx);
+         koordinanty=view.findViewById(R.id.Koordinanty);
+         ucret2=view.findViewById(R.id.Ucret);
+         aciklama2=view.findViewById(R.id.aciklama2);
+
+
+
+
+         arackontrol();
+
+
+
+
+
+
+
      }
      else {
+         mycar.setVisibility(View.VISIBLE);
+         varsa.setVisibility(View.GONE);
          kayit = view.findViewById(R.id.AracKayit);
          yakitekle();
 //yakit tipi dolduruluyor
@@ -384,14 +416,20 @@ return entry[0];
                 for(Arac m : Arac){
 
                     if(m.getUserId().equals(userId)){
-                        arcknt=true;
-                        break;
+                        koordinantx.setText("Koordinant X :"+m.getXKoordinat().toString());
+                        koordinanty.setText("Koordinant Y :"+m.getYKoordinat().toString());
+                        ucret2.setText("Saatlik Ücret :"+m.getUcret().toString());
+                        aciklama2.setText("Açıklama :"+m.getAciklama().toString());
+
+
                     }
                 }
             }
             @Override
             public void onFailure(Call<List<Arac>> call, Throwable t) {
+
                 Toast.makeText(getContext(), "onFailure" + t.getMessage(), Toast.LENGTH_LONG).show();
+
             }
         });
 

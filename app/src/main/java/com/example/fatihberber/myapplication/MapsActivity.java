@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     ImageButton Ibutton;
+    ImageView imagebuton;
     TextView model, isim, ucret;
     View aracbilgi;
     ImageButton gizle;
@@ -75,6 +77,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ucret = findViewById(R.id.textView12);
         model = findViewById(R.id.model);
         gizle = findViewById(R.id.gizle);
+        imagebuton=findViewById(R.id.imageView2);
+imagebuton.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        ///buraya araç kiralanacak ekran gelecek
+    }
+});
+
+
+
         gizle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -215,6 +227,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void getArac() {
         final Session session=new Session(getBaseContext());
         user=session.getUsersId();
+        session.setAracId(0);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(WebAPI.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
