@@ -101,6 +101,7 @@ if(knt!=12){
         selectedFragment = new kirala();
         getSupportFragmentManager().beginTransaction().replace(R.id.harita, selectedFragment).commit();
 
+
     }
 });
 
