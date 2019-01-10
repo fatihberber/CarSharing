@@ -188,6 +188,7 @@ public void getarac(){
                         public void onResponse(Call<Arac> call, Response<Arac> response) {
 
                             Toast.makeText(getContext(), "OKKK", Toast.LENGTH_LONG).show();
+
                         }
 
                         @Override
