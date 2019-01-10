@@ -12,11 +12,14 @@ import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface WebAPI {
 
@@ -65,6 +68,28 @@ public interface WebAPI {
 
 
 
+    @DELETE("Yolculuk/{id}")
+    Call<Void> DeleteYolculuk(@Path("id") int aracid);
+
+    @FormUrlEncoded
+    @PUT("Arac/{id}")
+    Call<Arac> putarac(@Path("id") int aracid,
+                       @Field("AracId")Integer aracidd,
+                       @Field("UserId")Integer UserId,
+                       @Field("XKoordinat")String XKoordinat,
+                       @Field("YKoordinat")String YKoordinat,
+                       @Field("MarkaId")Integer MarkaId,
+                       @Field("ModelId")Integer ModelId,
+                       @Field("Ucret")Float Ucret,
+                       @Field("KM")Integer KM,
+                       @Field("Yakit")String Yakit,
+                       @Field("Kasa")String Kasa,
+                       @Field("Yil")String Yil,
+                       @Field("Vites")String Vites,
+                       @Field("Aciklama")String Aciklama,
+                       @Field("AracDurum")String AracDurum
+
+    );
 
 
     @FormUrlEncoded

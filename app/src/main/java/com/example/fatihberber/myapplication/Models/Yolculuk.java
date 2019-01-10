@@ -14,13 +14,19 @@ public class Yolculuk {
     }
 
     Integer AracSahipId;
+
+    public Integer getYolculukId() {
+        return YolculukId;
+    }
+
+    Integer YolculukId;
 Integer KiralayanId;
 Integer AracId;
 
-public Yolculuk(Integer aracSahipId,
+public Yolculuk(Integer yolculukId,Integer aracSahipId,
         Integer kiralayanId,
         Integer aracId){
-
+    YolculukId=yolculukId;
     AracSahipId=aracSahipId;
     KiralayanId=kiralayanId;
     AracId=aracId;
