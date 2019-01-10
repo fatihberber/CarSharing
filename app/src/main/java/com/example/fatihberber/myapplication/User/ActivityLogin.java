@@ -1,6 +1,7 @@
 package com.example.fatihberber.myapplication.User;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fatihberber.myapplication.Fragment.KiralikArac;
+import com.example.fatihberber.myapplication.Fragment.MyCar;
 import com.example.fatihberber.myapplication.MapsActivity;
 import com.example.fatihberber.myapplication.Models.UyeBilgi;
 import com.example.fatihberber.myapplication.Process.Session;
@@ -122,6 +125,8 @@ public class ActivityLogin extends AppCompatActivity {
                     Session session=new Session(getBaseContext());
                     session.setUserId(email.getText().toString());
                     session.setUsersId(usersid);
+
+
 
 
 

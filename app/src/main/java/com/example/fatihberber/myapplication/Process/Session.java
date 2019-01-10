@@ -40,5 +40,11 @@ public class Session {
         Integer aracId=preferences.getInt("AracId2",1);
         return aracId;
     }
-
+    public void setknt(Integer aracId){
+        preferences.edit().putInt("AracId2",aracId).commit();
+    }
+    public Integer getknt(){
+        Integer aracId=preferences.getInt("AracId2",1);
+        return aracId;
+    }
 }

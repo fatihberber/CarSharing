@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fatihberber.myapplication.Fragment.KiralikArac;
 import com.example.fatihberber.myapplication.Fragment.MyCar;
 import com.example.fatihberber.myapplication.Fragment.Profil;
 import com.example.fatihberber.myapplication.Fragment.kirala;
@@ -57,6 +58,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     MaterialRatingBar ratingbar;
     String UserId;
     int user;
+    int knt;
 
 
     static List<Lokasyon> lokasyonlar = new ArrayList<>();
@@ -67,8 +69,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        getArac();
         Session session=new Session(getBaseContext());
+       knt= session.getknt();
+if(knt!=12){
+        Fragment selectedFragment = null;
+        selectedFragment = new KiralikArac();
+        getSupportFragmentManager().beginTransaction().replace(R.id.harita, selectedFragment).commit();
+    }
+
+
+        getArac();
+
         session.setAracId2(0);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);

@@ -4,11 +4,14 @@ package com.example.fatihberber.myapplication.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.support.v4.app.Fragment;
+
 import android.widget.Toast;
 
 import com.example.fatihberber.myapplication.Models.Arac;
@@ -135,7 +138,9 @@ public class kirala extends Fragment {
             public void onResponse(Call<Yolculuk> call, Response<Yolculuk> response) {
                 try {
                     Toast.makeText(getContext(), "okkk", Toast.LENGTH_LONG).show();
-
+                    Fragment selectedFragment = null;
+                    selectedFragment = new KiralikArac();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.harita, selectedFragment).commit();
 
                 } catch (Exception e) {
 
