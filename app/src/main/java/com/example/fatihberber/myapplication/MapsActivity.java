@@ -90,8 +90,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         selectedFragment = new kirala();
         getSupportFragmentManager().beginTransaction().replace(R.id.harita, selectedFragment).commit();
 
-
-
     }
 });
 
