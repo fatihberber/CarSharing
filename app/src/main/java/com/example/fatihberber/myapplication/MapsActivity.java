@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.fatihberber.myapplication.Fragment.MyCar;
 import com.example.fatihberber.myapplication.Fragment.Profil;
+import com.example.fatihberber.myapplication.Fragment.kirala;
 import com.example.fatihberber.myapplication.Models.Arac;
 import com.example.fatihberber.myapplication.Models.Lokasyon;
 import com.example.fatihberber.myapplication.Models.UyeBilgi;
@@ -67,6 +68,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         getArac();
+        Session session=new Session(getBaseContext());
+        session.setAracId2(0);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         Ibutton = findViewById(R.id.button5);
@@ -78,10 +81,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         model = findViewById(R.id.model);
         gizle = findViewById(R.id.gizle);
         imagebuton=findViewById(R.id.imageView2);
-imagebuton.setOnClickListener(new View.OnClickListener() {
+        imagebuton.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         ///buraya araç kiralanacak ekran gelecek
+        aracbilgi.setVisibility(View.GONE);
+        Fragment selectedFragment = null;
+        selectedFragment = new kirala();
+        getSupportFragmentManager().beginTransaction().replace(R.id.harita, selectedFragment).commit();
+
+
+
     }
 });
 
@@ -177,6 +187,12 @@ imagebuton.setOnClickListener(new View.OnClickListener() {
                                 isim.setText(n.getAdi() + " " + n.getSoyadi());
                                 if (l.getAracDurum().matches("Dolu")) {
                                     durum = "gösterme";
+                                }
+                                else{
+                                    Session session=new Session(getBaseContext());
+                                    session.setAracId2(l.getAracId());
+
+
                                 }
                                 break;
                             }

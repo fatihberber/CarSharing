@@ -33,5 +33,12 @@ public class Session {
         Integer aracId=preferences.getInt("AracId",1);
         return aracId;
     }
+    public void setAracId2(Integer aracId){
+        preferences.edit().putInt("AracId",aracId).commit();
+    }
+    public Integer getAracId2(){
+        Integer aracId=preferences.getInt("AracId",1);
+        return aracId;
+    }
 
 }
