@@ -1,19 +1,26 @@
 package com.example.fatihberber.myapplication.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fatihberber.myapplication.Models.Arac;
 import com.example.fatihberber.myapplication.Models.Lokasyon;
+import com.example.fatihberber.myapplication.Models.UyeBilgi;
+import com.example.fatihberber.myapplication.Models.Yolculuk;
 import com.example.fatihberber.myapplication.Process.Session;
 import com.example.fatihberber.myapplication.R;
+import com.example.fatihberber.myapplication.Service.RetrofitClient;
 import com.example.fatihberber.myapplication.Service.WebAPI;
+import com.example.fatihberber.myapplication.User.ActivityKayit;
+import com.example.fatihberber.myapplication.User.ActivityLogin;
 
 import java.util.List;
 
@@ -34,8 +41,10 @@ public class kirala extends Fragment {
         // Required empty public constructor
     }
     TextView arac,arac1,arac2,arac3,arac4,arac5,arac6;
+    Button yolculuk;
     int aracid;
-
+    int kullaniciid;
+    int sahipid;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,9 +57,24 @@ public class kirala extends Fragment {
         arac3=view.findViewById(R.id.arac3);
         arac4=view.findViewById(R.id.arac4);
         arac5=view.findViewById(R.id.arac5);
+        yolculuk=view.findViewById(R.id.Kirala);
         Session session=new Session(getContext());
         aracid=session.getAracId2();
+        kullaniciid=session.getUsersId();
         doldur();
+
+        yolculuk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Tıklandı", Toast.LENGTH_LONG).show();
+
+                kirala();
+            }
+
+        });
+
+
+
         return view;
     }
 
@@ -75,11 +99,9 @@ public class kirala extends Fragment {
                        arac3.setText("Yakıt :"+m.getYakit());
                        arac4.setText("KM :"+m.getKM());
                        arac5.setText("Açıklama :"+m.getAciklama());
+                       sahipid=m.getUserId();
 
-
-
-
-                   }
+}
 
 
 
@@ -92,6 +114,39 @@ public class kirala extends Fragment {
             @Override
             public void onFailure(Call<List<Arac>> call, Throwable t) {
                 Toast.makeText(getContext(), "onFailure" + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+
+
+
+    }
+
+    public void kirala(){
+
+        Call<Yolculuk> call = RetrofitClient
+                .getmInstance()
+                .getApi()
+                .postYolculuk(sahipid,kullaniciid,aracid);
+//
+        call.enqueue(new Callback<Yolculuk>() {
+            @Override
+            public void onResponse(Call<Yolculuk> call, Response<Yolculuk> response) {
+                try {
+                    Toast.makeText(getContext(), "okkk", Toast.LENGTH_LONG).show();
+
+
+                } catch (Exception e) {
+
+                    Toast.makeText(getContext(), "onResponse da patladı", Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Yolculuk> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage() + " onFailure", Toast.LENGTH_LONG).show();
             }
         });
 

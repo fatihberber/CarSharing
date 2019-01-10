@@ -4,6 +4,7 @@ import com.example.fatihberber.myapplication.Models.Arac;
 import com.example.fatihberber.myapplication.Models.Marka;
 import com.example.fatihberber.myapplication.Models.Model;
 import com.example.fatihberber.myapplication.Models.UyeBilgi;
+import com.example.fatihberber.myapplication.Models.Yolculuk;
 
 import java.util.Date;
 import java.util.List;
@@ -48,6 +49,24 @@ public interface WebAPI {
     @GET("Model")
         //listin içindeki model adı get arac çağırırken ki ismi istediğimizi koyuyoruz
     Call<List<Model>> getModel();
+    @GET("Yolculuk")
+    Call<List<Yolculuk>> getYolculuk();
+
+    @FormUrlEncoded
+    @POST("Yolculuk")
+    Call<Yolculuk> postYolculuk(
+
+            @Field("AracSahipId")  Integer AracSahipId,
+            @Field("KiralayanId")  Integer KiralayanId,
+            @Field("AracId")  Integer AracId
+
+    );
+
+
+
+
+
+
     @FormUrlEncoded
     @POST("UyeBilgi")
     Call<UyeBilgi> UyeBilgiKayit(
@@ -80,6 +99,7 @@ public interface WebAPI {
             @Field("AracDurum")String AracDurum
 
     );
+
 
 
 

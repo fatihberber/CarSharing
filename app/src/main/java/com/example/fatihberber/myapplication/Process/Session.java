@@ -34,10 +34,10 @@ public class Session {
         return aracId;
     }
     public void setAracId2(Integer aracId){
-        preferences.edit().putInt("AracId",aracId).commit();
+        preferences.edit().putInt("AracId2",aracId).commit();
     }
     public Integer getAracId2(){
-        Integer aracId=preferences.getInt("AracId",1);
+        Integer aracId=preferences.getInt("AracId2",1);
         return aracId;
     }
 
