@@ -123,6 +123,7 @@ public class ActivityLogin extends AppCompatActivity {
                 }
                 if (entry) {
                     Session session=new Session(getBaseContext());
+                    session.setknt(0);
                     session.setUserId(email.getText().toString());
                     session.setUsersId(usersid);
 

@@ -137,6 +137,92 @@ public class kirala extends Fragment {
             @Override
             public void onResponse(Call<Yolculuk> call, Response<Yolculuk> response) {
                 try {
+
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl(WebAPI.BASE_URL)
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+
+
+                    WebAPI api = retrofit.create(WebAPI.class);
+                    Call<List<Arac>> call2 = api.getArac();
+
+
+
+                    call2.enqueue(new Callback<List<Arac>>() {
+                        @Override
+                        public void onResponse(Call<List<Arac>> call, Response<List<Arac>> response) {
+                            List<Arac> aracbilgileri = response.body();
+                            for (Arac m : aracbilgileri) {
+                                if(m.getAracId().equals(aracid))
+                                {
+                                    Integer userid;
+                                    String xkoordinat;
+                                    String ykoordinat;
+                                    Integer markaId;
+                                    Integer modelId;
+                                    Float ucret;
+                                    Integer km;
+                                    String yakit;
+                                    String kasa;
+                                    String yil;
+                                    String vites;
+                                    String aciklama;
+                                    String aracdurum;
+
+
+                                    userid=m.getUserId();
+                                    xkoordinat=m.getXKoordinat();
+                                    ykoordinat=m.getYKoordinat();
+                                    markaId=m.getMarkaId();
+                                    modelId=m.getModelId();
+                                    ucret=m.getUcret();
+                                    km=m.getKM();
+                                    yakit=m.getYakit();
+                                    kasa=m.getKasa();
+                                    yil=m.getYil();
+                                    vites=m.getVites();
+                                    aciklama=m.getAciklama();
+                                    aracdurum="Dolu";
+                                    Call<Arac> call2 = RetrofitClient
+                                            .getmInstance()
+                                            .getApi()
+                                            .putarac(aracid,aracid,userid,xkoordinat,ykoordinat,markaId,modelId,ucret,km,yakit,kasa,yil,vites,aciklama,aracdurum);
+                                    call2.enqueue(new Callback<Arac>() {
+                                        @Override
+                                        public void onResponse(Call<Arac> call, Response<Arac> response) {
+
+
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<Arac> call, Throwable t) {
+                                        }
+                                    });
+
+
+
+                                }
+
+                            }
+
+                            }
+
+                        @Override
+                        public void onFailure(Call<List<Arac>> call, Throwable t) {
+                        }
+                    });
+
+
+
+
+
+
+
+
+
+
+
                     Toast.makeText(getContext(), "okkk", Toast.LENGTH_LONG).show();
                     Fragment selectedFragment = null;
                     selectedFragment = new KiralikArac();
@@ -160,5 +246,11 @@ public class kirala extends Fragment {
 
 
     }
+
+
+
+
+
+
 
 }

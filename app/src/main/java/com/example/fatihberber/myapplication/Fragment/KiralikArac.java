@@ -178,7 +178,7 @@ public void getarac(){
                     yil=m.getYil();
                     vites=m.getVites();
                     aciklama=m.getAciklama();
-                    aracdurum="Dolu";
+                    aracdurum="Boş";
                     Call<Arac> call2 = RetrofitClient
                             .getmInstance()
                             .getApi()
@@ -209,7 +209,9 @@ public void getarac(){
                     calle.enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
-
+                            Intent i = new Intent(getActivity(), MapsActivity.class);
+                            startActivity(i);
+                            Toast.makeText(getContext(), "maps e gidiyon" , Toast.LENGTH_LONG).show();
                             Toast.makeText(getContext(), "OKKK", Toast.LENGTH_LONG).show();
                         }
 
