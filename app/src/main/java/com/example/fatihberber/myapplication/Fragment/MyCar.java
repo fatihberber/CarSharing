@@ -251,7 +251,7 @@ varsa.setVisibility(View.VISIBLE);
                 adaptermarka = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, markalar2);
                 adaptermarka.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 Marka.setAdapter(adaptermarka);
-                Toast.makeText(getContext(), "OKKK", Toast.LENGTH_LONG).show();
+               // Toast.makeText(getContext(), "OKKK", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -334,7 +334,7 @@ if(m.getMarkaId().equals(Markaid))
             public void onResponse(Call<Arac> call, Response<Arac> response) {
                 try {
 
-                    Toast.makeText(getContext(), "Kaydedildi", Toast.LENGTH_LONG).show();
+                  //  Toast.makeText(getContext(), "Kaydedildi", Toast.LENGTH_LONG).show();
 
 
                 } catch (Exception e) {
@@ -420,7 +420,7 @@ return entry[0];
                         koordinanty.setText("Koordinant Y :"+m.getYKoordinat().toString());
                         ucret2.setText("Saatlik Ücret :"+m.getUcret().toString());
                         aciklama2.setText("Açıklama :"+m.getAciklama().toString());
-
+break;
 
                     }
                 }

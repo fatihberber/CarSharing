@@ -69,7 +69,7 @@ public class kirala extends Fragment {
         yolculuk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Tıklandı", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getContext(), "Tıklandı", Toast.LENGTH_LONG).show();
 
                 kirala();
             }
@@ -95,23 +95,24 @@ public class kirala extends Fragment {
             public void onResponse(Call<List<Arac>> call, Response<List<Arac>> response) {
                 List<Arac> aracbilgileri = response.body();
                 for (Arac m : aracbilgileri) {
-                   if(m.getAracId().equals(aracid)){
-                       arac.setText("Araç Saatlik ücret :"+m.getUcret());
-                       arac1.setText("Araç ID :"+m.getAracId());
-                       arac2.setText("Plaka "+m.getKasa());
-                       arac3.setText("Yakıt :"+m.getYakit());
-                       arac4.setText("KM :"+m.getKM());
-                       arac5.setText("Açıklama :"+m.getAciklama());
-                       sahipid=m.getUserId();
+                   if(m.getAracId().equals(aracid)) {
+                       arac.setText("Araç Saatlik ücret :" + m.getUcret());
+                       arac1.setText("Araç ID :" + m.getAracId());
+                       arac2.setText("Plaka " + m.getKasa());
+                       arac3.setText("Yakıt :" + m.getYakit());
+                       arac4.setText("KM :" + m.getKM());
+                       arac5.setText("Açıklama :" + m.getAciklama());
+                       sahipid = m.getUserId();
+                       break;
 
-}
+                   }
 
 
 
                 }
 
 
-                Toast.makeText(getContext(), "OKKK", Toast.LENGTH_LONG).show();
+               // Toast.makeText(getContext(), "OKKK", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -163,6 +164,8 @@ public class kirala extends Fragment {
                                     Integer modelId;
                                     Float ucret;
                                     Integer km;
+                                    Integer gor;
+                                    Integer ort;
                                     String yakit;
                                     String kasa;
                                     String yil;
@@ -184,10 +187,12 @@ public class kirala extends Fragment {
                                     vites=m.getVites();
                                     aciklama=m.getAciklama();
                                     aracdurum="Dolu";
+                                    gor=m.getGoruntulenme();
+                                    ort=m.getOrtalamaPuan();
                                     Call<Arac> call2 = RetrofitClient
                                             .getmInstance()
                                             .getApi()
-                                            .putarac(aracid,aracid,userid,xkoordinat,ykoordinat,markaId,modelId,ucret,km,yakit,kasa,yil,vites,aciklama,aracdurum);
+                                            .putarac(aracid,aracid,userid,xkoordinat,ykoordinat,markaId,modelId,ucret,km,yakit,kasa,yil,vites,aciklama,gor,ort,aracdurum);
                                     call2.enqueue(new Callback<Arac>() {
                                         @Override
                                         public void onResponse(Call<Arac> call, Response<Arac> response) {
@@ -199,7 +204,7 @@ public class kirala extends Fragment {
                                         public void onFailure(Call<Arac> call, Throwable t) {
                                         }
                                     });
-
+break;
 
 
                                 }
@@ -223,7 +228,7 @@ public class kirala extends Fragment {
 
 
 
-                    Toast.makeText(getContext(), "okkk", Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getContext(), "okkk", Toast.LENGTH_LONG).show();
                     Fragment selectedFragment = null;
                     selectedFragment = new KiralikArac();
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.harita, selectedFragment).commit();

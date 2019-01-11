@@ -87,6 +87,8 @@ public interface WebAPI {
                        @Field("Yil")String Yil,
                        @Field("Vites")String Vites,
                        @Field("Aciklama")String Aciklama,
+                       @Field("Goruntuleme")int goruntulenme,
+                       @Field("OrtalamaPuan")int ortalamapuan,
                        @Field("AracDurum")String AracDurum
 
     );

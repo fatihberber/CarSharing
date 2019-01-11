@@ -111,7 +111,7 @@ if(knt!=12){
             @Override
             public void onClick(View v) {
                 aracbilgi.setVisibility(View.GONE);
-                Toast.makeText(getBaseContext(), "OKKK", Toast.LENGTH_LONG).show();
+            //    Toast.makeText(getBaseContext(), "OKKK", Toast.LENGTH_LONG).show();
             }
         });
         Ibutton.setOnClickListener(new View.OnClickListener() {
@@ -281,7 +281,7 @@ if(knt!=12){
                 }
 
 
-                Toast.makeText(getBaseContext(), "OKKK", Toast.LENGTH_LONG).show();
+              //  Toast.makeText(getBaseContext(), "OKKK", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -302,7 +302,7 @@ if(knt!=12){
                 }
 
 
-                Toast.makeText(getBaseContext(), "OKKK", Toast.LENGTH_LONG).show();
+                // Toast.makeText(getBaseContext(), "OKKK", Toast.LENGTH_LONG).show();
             }
 
             @Override

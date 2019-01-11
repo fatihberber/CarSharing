@@ -107,7 +107,7 @@ view  = inflater.inflate(R.layout.fragment_profil, container, false);
                             e.printStackTrace();
                         }
 
-
+break;
                     }
                 }
             }

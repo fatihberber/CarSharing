@@ -143,7 +143,7 @@ public class ActivityLogin extends AppCompatActivity {
 
 
 
-                Toast.makeText(getBaseContext(), "OKKK", Toast.LENGTH_LONG).show();
+              //  Toast.makeText(getBaseContext(), "OKKK", Toast.LENGTH_LONG).show();
             }
 
             @Override

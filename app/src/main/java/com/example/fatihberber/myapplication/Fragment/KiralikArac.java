@@ -71,7 +71,7 @@ public class KiralikArac extends Fragment {
         teslim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Tıklandı", Toast.LENGTH_LONG).show();
+               // Toast.makeText(getContext(), "Tıklandı", Toast.LENGTH_LONG).show();
 
                 getarac();
             }
@@ -118,7 +118,7 @@ Session session=new Session(getContext());
 session.setknt(12);
                 Intent i = new Intent(getActivity(), MapsActivity.class);
                 startActivity(i);
-                Toast.makeText(getContext(), "maps e gidiyon" , Toast.LENGTH_LONG).show();
+              //  Toast.makeText(getContext(), "maps e gidiyon" , Toast.LENGTH_LONG).show();
 
 
             }
@@ -164,6 +164,8 @@ public void getarac(){
                     String vites;
                     String aciklama;
                     String aracdurum;
+                    int gor;
+                    int ort;
 
 
                             userid=m.getUserId();
@@ -178,16 +180,18 @@ public void getarac(){
                     yil=m.getYil();
                     vites=m.getVites();
                     aciklama=m.getAciklama();
+                    gor=m.getGoruntulenme();
+                    ort=m.getOrtalamaPuan();
                     aracdurum="Boş";
                     Call<Arac> call2 = RetrofitClient
                             .getmInstance()
                             .getApi()
-                            .putarac(aracidd,aracidd,userid,xkoordinat,ykoordinat,markaId,modelId,ucret,km,yakit,kasa,yil,vites,aciklama,aracdurum);
+                            .putarac(aracidd,aracidd,userid,xkoordinat,ykoordinat,markaId,modelId,ucret,km,yakit,kasa,yil,vites,aciklama,gor,ort,aracdurum);
                     call2.enqueue(new Callback<Arac>() {
                         @Override
                         public void onResponse(Call<Arac> call, Response<Arac> response) {
 
-                            Toast.makeText(getContext(), "OKKK", Toast.LENGTH_LONG).show();
+                        //    Toast.makeText(getContext(), "OKKK", Toast.LENGTH_LONG).show();
 
                         }
 
@@ -211,8 +215,8 @@ public void getarac(){
                         public void onResponse(Call<Void> call, Response<Void> response) {
                             Intent i = new Intent(getActivity(), MapsActivity.class);
                             startActivity(i);
-                            Toast.makeText(getContext(), "maps e gidiyon" , Toast.LENGTH_LONG).show();
-                            Toast.makeText(getContext(), "OKKK", Toast.LENGTH_LONG).show();
+                         //   Toast.makeText(getContext(), "maps e gidiyon" , Toast.LENGTH_LONG).show();
+                         //   Toast.makeText(getContext(), "OKKK", Toast.LENGTH_LONG).show();
                         }
 
                         @Override
@@ -220,13 +224,13 @@ public void getarac(){
                             Toast.makeText(getContext(), "onFailure" + t.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     });
-
+break;
                 }
 
             }
 
 
-            Toast.makeText(getContext(), "OKKK", Toast.LENGTH_LONG).show();
+           // Toast.makeText(getContext(), "OKKK", Toast.LENGTH_LONG).show();
         }
 
         @Override
